@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React E-commerce</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <!-- lato css -->
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <script src="https://kit.fontawesome.com/d8ee6b40b3.js" crossorigin="anonymous"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+            background-color: #333;
+            font-family: 'Lato' !important;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        @media all and (-ms-high-contrast: none),
+        (-ms-high-contrast: active) {
+            .form-label-group>label {
+                display: none;
+            }
+
+            .form-label-group input:-ms-input-placeholder {
+                color: #f6f6f6;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card" style="padding: 5vh;">
+            <div class="col-md-4 my-4">
+                <button type="button" class="btn btn-info"><i class="fas fa-plus"></i> Save</button>
+            </div>
+            <div class="card-deck">
+                <div class="card">
+                    <img class="card-img-top" src="http://via.placeholder.com/500x400" alt="Card image cap">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Product Title<img class="card-img"
+                                src="http://clipart-library.com/new_gallery/98-985509_5-stars-transparent-google-review-logo.png"
+                                width="10" height="50" alt=""></h5>
+                        <p class="card-text" style="font-size: 2vh;">This is a wider card with supporting text below as
+                            a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                        <strong style="font-size: 4vh;" class="my-2 mt-auto align-self-end">Rp. 3.999.999,-</strong>
+                        <button type="button" class="btn btn-success mr-2 mt-auto"><i class="fas fa-check"></i> Detail
+                            Item</button>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="http://via.placeholder.com/500x400" alt="Card image cap">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Product Title<img class="card-img"
+                                src="http://clipart-library.com/new_gallery/98-985509_5-stars-transparent-google-review-logo.png"
+                                width="10" height="50" alt=""></h5>
+                        <p class="card-text" style="font-size: 2vh;">This card has supporting text below as a natural
+                            lead-in to additional
+                            content.</p>
+                        <strong style="font-size: 4vh;" class="my-2 mt-auto align-self-end">Rp. 3.999.999,-</strong>
+                        <button type="button" class="btn btn-success mr-2 mt-auto"><i class="fas fa-check"></i> Detail
+                            Item</button>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="http://via.placeholder.com/500x400" alt="Card image cap">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Product Title<img class="card-img"
+                                src="http://clipart-library.com/new_gallery/98-985509_5-stars-transparent-google-review-logo.png"
+                                width="10" height="50" alt=""></h5>
+                        <p class="card-text" style="font-size: 2vh;">This is a wider card with supporting text below as
+                            a natural lead-in to
+                            additional content. This card has even longer content than the first to show that equal
+                            height action.</p>
+                        <strong style="font-size: 4vh;" class="my-2 mt-auto align-self-end">Rp. 3.999.999,-</strong>
+                        <button type="button" class="btn btn-success mr-2 mt-auto"><i class="fas fa-check"></i> Detail
+                            Item</button>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="http://via.placeholder.com/500x400" alt="Card image cap">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Product Title<img class="card-img"
+                                src="http://clipart-library.com/new_gallery/98-985509_5-stars-transparent-google-review-logo.png"
+                                width="10" height="50" alt=""></h5>
+                        <p class="card-text" style="font-size: 2vh;">This is a wider card with supporting text below as
+                            a natural lead-in to
+                            additional content. This card has even longer content than the first to show that equal
+                            height action.</p>
+                        <strong style="font-size: 4vh;" class="my-2 mt-auto align-self-end">Rp. 3.999.999,-</strong>
+                        <button type="button" class="btn btn-success mr-2 mt-auto"><i class="fas fa-check"></i> Detail
+                            Item</button>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
