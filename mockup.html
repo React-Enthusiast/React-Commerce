@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React E-commerce</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <!-- lato css -->
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <script src="https://kit.fontawesome.com/d8ee6b40b3.js" crossorigin="anonymous"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+            background-color: #333;
+            font-family: 'Lato' !important;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        @media all and (-ms-high-contrast: none),
+        (-ms-high-contrast: active) {
+            .form-label-group>label {
+                display: none;
+            }
+
+            .form-label-group input:-ms-input-placeholder {
+                color: #f6f6f6;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header text-center">
+                <h2>Form Add</h2>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group row">
+                        <label for="title" class="col-sm-2 col-form-label">Title</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="title">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="rate" class="col-sm-2 col-form-label">Rate</label>
+                        <div class="col-sm-10">
+                            <input type="number" min="1" max="5" class="form-control" id="rate" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <h5 class="col-sm-2 col-form-label">
+                            Description</h5>
+                        <div class="col-sm-10">
+                            <textarea type="text" class="form-control" id="name" placeholder="Description"
+                                name="description" rows="5">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Price" class="col-sm-2 col-form-label">Price</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="Price">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Brand" class="col-sm-2 col-form-label">Brand</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="Brand">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <h5 class="col-sm-2 col-form-label">
+                            Detail Product</h5>
+                        <div class="col-sm-10">
+                            <textarea type="text" class="form-control" id="name" name="Detail" rows="5">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <h5 class="col-sm-2 col-form-label">File</h5>
+                        <div class="col-sm-10">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <button type="button" class="btn btn-success mr-2"><i class="fas fa-check"></i> Save</button>
+                        <button type="reset" class="btn btn-danger"> <i class="fas fa-undo"></i> Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
