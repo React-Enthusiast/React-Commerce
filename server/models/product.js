@@ -9,7 +9,7 @@ var productSchema = new Schema({
     price: { type: String, required: true },
     detail: { type: String, required: true },
     vote: { type: Number, default: 0 },
-    testimonials: [{}], // {rate, name, message}
+    testimonials: [{}], // {name, rate, message}
     rate: { type: Number, default: 0 },
     colors: {type: [String], required: true},
     capacities: {type: [String], required: true} 
