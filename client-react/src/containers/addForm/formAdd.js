@@ -241,7 +241,7 @@ class FormAdd extends React.Component {
                 })),
                 swatch: {
                     padding: "9px",
-                    background: "#cccccc",
+                    background: "#e9e9e9",
                     borderRadius: "2px",
                     boxShadow: "#010101",
                     display: "inline-block",
