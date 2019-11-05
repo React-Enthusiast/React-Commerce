@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { addData } from '../../actions';
+import reactCSS from 'reactcss'
 import { SketchPicker } from 'react-color';
 import { Form } from './form'
 
@@ -24,7 +25,7 @@ class FormAdd extends React.Component {
             rate: '',
             colors: ['#fff'],
             capacities: [],
-            displaypicker: false,
+            displaypicker: [false],
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -36,14 +37,15 @@ class FormAdd extends React.Component {
         this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this)
     }
 
+    //github.com/rofisyahrul
     convertPrice = (price = 0, currency = "Rp. ") => {
         price = price
-          .toString()
-          .replace(/\D/g, "")
-          .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+            .toString()
+            .replace(/\D/g, "")
+            .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
         price = price && `${currency} ${price}`;
         return price;
-      }
+    }
 
     handleChange(event) {
         this.setState({
@@ -52,7 +54,7 @@ class FormAdd extends React.Component {
     }
 
     handleChangeCurrency(event) {
-        let {name,value,inputMode} = event.target
+        let { name, value, inputMode } = event.target
         if (inputMode === 'numeric') {
             value = this.convertPrice(value)
         }
@@ -62,8 +64,8 @@ class FormAdd extends React.Component {
     }
 
     handleChangeCheckbox(event, name) {
-        let {value,checked} = event.target
-        if (checked){
+        let { value, checked } = event.target
+        if (checked) {
             this.setState({
                 [name]: value
             })
@@ -95,45 +97,77 @@ class FormAdd extends React.Component {
             rate: '',
             colors: ['#fff'],
             capacities: [],
-            displaypicker: false
+            displaypicker: [false]
         })
     }
 
-    // handleButtonColor = (event) => {
-    //     let { id } = event.target;
-    //     id = Number(id.split("click")[1])
-    //     this.setState(state => ({
-    //         displaypicker: state.displaypicker.map((result, index) => index === id ? !result : result)
-    //     }))
-    // }
     handleButtonColor = (event) => {
-        this.setState({
-            displaypicker: true
-        })
+        let { id } = event.target;
+        id = Number(id.split("click")[1])
+        this.setState(state => ({
+            displaypicker: state.displaypicker.map((result, index) => index === id ? !result : result)
+        }))
     }
-    
-
-    // handleColorClose = (event) => {
-    //     let { id } = event.target
-    //     id = Number(id.split('close')[1])
-    //     this.setState(state => ({
-    //         displaypicker: state.displaypicker.map((result, index) => index === id ? false : result)
-    //     }))
+    // handleButtonColor = (event) => {
+    //     this.setState({
+    //         displaypicker: true
+    //     })
     // }
+
+
     handleColorClose = (event) => {
-        this.setState({
-            displaypicker: false
-        })
+        let { id } = event.target
+        id = Number(id.split('close')[1])
+        this.setState(state => ({
+            displaypicker: state.displaypicker.map((result, index) => index === id ? false : result)
+        }))
     }
+    // handleColorClose = (event) => {
+    //     this.setState({
+    //         displaypicker: false
+    //     })
+    // }
 
     handleChangeColor = (color, event) => {
+        // console.log('target >',target.getParents(4)); //get parent div
         let target = event.target
-        // console.log(target.getParents(4)); //get parent div
-        this.setState({
-            // colors: event.target.colors,
-            colors: color.hex,
-            displaypicker: true
-        })
+        if (target) {
+            let { id } = target.getParents(5)
+            id = Number(id.split('color')[1])
+            this.setState(state => ({
+                colors: state.colors.map((res, index) => (index === id ? color.hex : res))
+            }))
+        }
+    }
+    // handleChangeColor = (color, event) => {
+    //     let target = event.target
+    //     if (target) {
+    //         let {id} = target.getParents(5)
+    //         id = Number(id.split('color')[1])
+
+    //     }
+    //     // console.log(target.getParents(4)); //get parent div
+    //     this.setState({
+    //         // colors: event.target.colors,
+    //         colors: color.hex,
+    //         displaypicker: true
+    //     })
+    // }
+
+    addColor = (event) => {
+        event.preventDefault()
+        this.setState(state => ({
+            colors: [...state.colors, "#fff"],
+            displaypicker: [...state.displaypicker, false]
+        }))
+    }
+
+    deleleColor = (event) => {
+        event.preventDefault()
+        this.setState(state => ({
+            colors: state.colors.slice(0, state.colors.length - 1),
+            displaypicker: state.displaypicker.slice(0, state.displaypicker.length - 1)
+        }))
     }
 
     selectCapacities = () => {
@@ -148,88 +182,113 @@ class FormAdd extends React.Component {
         }
     }
 
-    colorPicker() {
-        if (this.state.displaypicker) {
-            return (
-                <div className="form-group row" >
-                    <label htmlFor="colors" className="col-sm-2 col-form-label">Colors</label>
-                    <div className="col-4">
-                        <SketchPicker color={this.state.colors} onChange={this.handleChangeColor} />
-                    </div>
-                    <div className="col-4" onClick={this.handleColorClose}></div>
-                </div>
-            )
-        } else {
-            return (
-                <div className="form-group row">
-                    <label htmlFor="colors" className="col-sm-2 col-form-label">Colors</label>
-                    <div className="col-1">
-                        <div style={{
-                            width: '40px',
-                            height: '15px',
-                            marginTop: '10px',
-                            borderRadius: '2px',
-                            backgroundColor: this.state.colors
-                        }}>
-                        </div>
-                    </div>
-                    <div className="col-1">
-                        <button type="button" onClick={this.handleButtonColor} className="btn btn-info"><i className="fa fa-plus" aria-hidden="true"></i></button>
-                    </div>
-                </div>
-            )
-        }
-    }
+    // colorPicker() {
+    //     if (this.state.displaypicker) {
+    //         return (
+    //             <div className="form-group row" >
+    //                 <label htmlFor="colors" className="col-sm-2 col-form-label">Colors</label>
+    //                 <div className="col-4">
+    //                     <SketchPicker color={this.state.colors} onChange={this.handleChangeColor} />
+    //                 </div>
+    //                 <div className="col-4" onClick={this.handleColorClose}></div>
+    //             </div>
+    //         )
+    //     } else {
+    //         return (
+    //             <div className="form-group row">
+    //                 <label htmlFor="colors" className="col-sm-2 col-form-label">Colors</label>
+    //                 <div className="col-1">
+    //                     <div style={{
+    //                         width: '40px',
+    //                         height: '15px',
+    //                         marginTop: '10px',
+    //                         borderRadius: '2px',
+    //                         backgroundColor: this.state.colors
+    //                     }}>
+    //                     </div>
+    //                 </div>
+    //                 <div className="col-1">
+    //                     <button type="button" onClick={this.handleButtonColor} className="btn btn-info"><i className="fa fa-plus" aria-hidden="true"></i></button>
+    //                 </div>
+    //             </div>
+    //         )
+    //     }
+    // }
 
     render() {
-        console.log(this.state.title);
-        let { price, title, description, brand, detail, vote, testimonials, rate } = this.state
+        // console.log(this.state.title);
+        let { price, title, description, brand, detail, vote, testimonials, rate, colors } = this.state
         let forms = [
             { name: 'title', type: 'text', label: 'Title', value: title },
             { name: 'description', type: 'textarea', label: 'Description', row: '5', value: description },
-            { name: 'brand', type: 'text', label: 'Brand', value: brand},
+            { name: 'brand', type: 'text', label: 'Brand', value: brand },
             { name: 'price', type: 'money', inputMode: 'numeric', label: 'Price', min: '0', value: price },
             { name: 'detail', type: 'textarea', label: 'Detail', value: detail },
-            { name: 'vote', type: 'number', label: 'Vote', min: '0', value: vote },
-            { name: 'testimonials', type: 'textarea', label: 'Testimonials', value: testimonials },
             this.selectCapacities(),
-            { name: 'rate', type: 'number', label: 'Rate', min: '0', max: '5', value: rate },
             { type: 'color' },
             { type: 'file' }
         ]
 
+        const styles = reactCSS({
+            default: {
+                colors: colors.map(result => ({
+                    width: '40px',
+                    height: '15px',
+                    marginTop: '2px',
+                    marginBottom: '2px',
+                    borderRadius: '2px',
+                    backgroundColor: result
+                })),
+                swatch: {
+                    padding: "9px",
+                    background: "#cccccc",
+                    borderRadius: "2px",
+                    boxShadow: "#010101",
+                    display: "inline-block",
+                    cursor: "pointer"
+                },
+                popover: {
+                    position: "absolute",
+                    zIndex: "2"
+                },
+                cover: {
+                    position: "fixed",
+                    top: "0px",
+                    right: "0px",
+                    bottom: "0px",
+                    left: "0px"
+                }
+            }
+        })
+
         let item = forms.map((result, index) => {
             if (result.type === 'color') {
-                if (this.state.displaypicker) {
-                    return (
-                        <div className="form-group row" >
-                            <label htmlFor="colors" className="col-sm-2 col-form-label">Colors</label>
-                            <div className="col-4">
-                                <SketchPicker color={this.state.colors} onChange={this.handleChangeColor} />
-                            </div>
-                            <div className="col-4" onClick={this.handleColorClose}></div>
-                        </div>
-                    )
-                } else {
-                    return (
-                        <div className="form-group row">
-                            <label htmlFor="colors" className="col-sm-2 col-form-label">Colors</label>
-                            <div className="col-1">
-                                <div style={{
-                                    width: '40px',
-                                    height: '15px',
-                                    marginTop: '10px',
-                                    borderRadius: '2px',
-                                    backgroundColor: this.state.colors
-                                }}>
+                return (
+                    <div key={index} className="form-group row my-4" >
+                        <label htmlFor="colors" className="col-sm-2 col-form-label">Colors</label>
+                        {colors.map((color, index) => (
+                            <div key={index} id={`color${index}`} className="col-1">
+                                <div style={styles.swatch} onClick={this.handleButtonColor} id={`click${index}`}>
+                                    <div style={styles.colors[index]} id={`click${index}`}></div>
                                 </div>
+                                {this.state.displaypicker[index] && (
+                                    <div style={styles.popover}>
+                                        <div style={styles.cover} onClick={this.handleColorClose} id={`close${index}`}></div>
+                                        <SketchPicker color={color} onChange={this.handleChangeColor} />
+                                    </div>
+                                )}
                             </div>
-                            <div className="col-1">
-                                <button type="button" onClick={this.handleButtonColor} className="btn btn-info"><i className="fa fa-plus" aria-hidden="true"></i></button>
-                            </div>
+                        ))}
+                        <div>
+                            {colors.length < 5 && (
+                                <button type="button" onClick={this.addColor} className="btn btn-info mx-2"><i className="fa fa-plus" aria-hidden="true"></i></button>
+                            )}
+                            {colors.length > 1 && (
+                                <button type="button" onClick={this.deleleColor} className="btn btn-danger mx-1"><i className="fa fa-minus" aria-hidden="true"></i></button>
+                            )}
                         </div>
-                    )
-                }
+                    </div>
+                )
             }
             return (
                 <Form key={index} {...result} onChange={this.handleChange} onChangeCurrency={this.handleChangeCurrency} onChangeCheckbox={this.handleChangeCheckbox} />
@@ -239,6 +298,10 @@ class FormAdd extends React.Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 {item}
+                <div className="form-group col-md-4 my-5">
+                    <button type="button" className="btn btn-success mr-2"><i className="fas fa-check"></i> Save</button>
+                    <button type="reset" className="btn btn-danger"> <i className="fas fa-undo"></i> Cancel</button>
+                </div>
             </form>
         )
 
