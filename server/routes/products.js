@@ -7,7 +7,7 @@ router.get('/:fetch', function (req, res) {
     let fetch = req.params.fetch;
     Product.find()
     .limit(perPage)
-    .skip(perPage * fetch)
+    .skip(perPage * (fetch - 1))
     .then(productData => {
         res.json({
             status: 'SUCCESS',
@@ -23,7 +23,7 @@ router.get('/:fetch', function (req, res) {
 
 router.post('/', function (req, res) {
     let { id, title, description, brand, price, detail, colors, capacities } = req.body;
-    Product.create({ id, title, description, brand, price, detail, colors, capacities })
+    Product.create({ id, title, description, brand, price, detail, colors: colors.replace('[','').replace(']','').split(', '), capacities: capacities.replace('[','').replace(']','').split(', ') })
         .then(productData => {
             res.json({
                 status: 'SUCCESS',
@@ -38,17 +38,15 @@ router.post('/', function (req, res) {
 })
 
 router.put('/:id', function (req, res) {
-    let { vote, testimonials, rate } = req.body;
-    let changedItem = {};
+    let { vote, testimonials, rate, capacities } = req.body;
     vote ? changedItem.vote = vote : '';
-    testimonials ? changedItem.testimonials = testimonials : '';
     rate ? changedItem.rate = rate : '';
-
+    testimonials ? changedItem.testimonials = JSON.parse(testimonials) : '';
     Product.findOneAndUpdate({ id: Number(req.params.id) }, changedItem)
         .then(item => {
             vote ? item.vote = vote : '';
-            testimonials ? item.testimonials = testimonials : '';
             rate ? item.rate = rate : '';
+            testimonials ? item.testimonials = JSON.parse(testimonials) : '';
             res.json({
                 status: 'SUCCESS',
                 productData: item,
@@ -61,4 +59,4 @@ router.put('/:id', function (req, res) {
         })
 })
 
-
+module.exports = router;
