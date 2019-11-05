@@ -1,5 +1,4 @@
 import React from 'react'
-import CurrencyInput from 'react-currency-input';
 
 export function Form(props) {
     let { name, label, type, min, max, onChange, inputMode, values, value,onChangeCurrency, onChangeCheckbox } = props;

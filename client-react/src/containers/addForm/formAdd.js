@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { addData } from '../actions';
+import { addData } from '../../actions';
 import { SketchPicker } from 'react-color';
 import { Form } from './form'
 
@@ -200,11 +200,36 @@ class FormAdd extends React.Component {
 
         let item = forms.map((result, index) => {
             if (result.type === 'color') {
-                return (
-                    <div key={index} className="form-group row">
-                        <label htmlFor="colors" className="col-sm-2 col-form-label">Colors</label>
-                    </div>
-                )
+                if (this.state.displaypicker) {
+                    return (
+                        <div className="form-group row" >
+                            <label htmlFor="colors" className="col-sm-2 col-form-label">Colors</label>
+                            <div className="col-4">
+                                <SketchPicker color={this.state.colors} onChange={this.handleChangeColor} />
+                            </div>
+                            <div className="col-4" onClick={this.handleColorClose}></div>
+                        </div>
+                    )
+                } else {
+                    return (
+                        <div className="form-group row">
+                            <label htmlFor="colors" className="col-sm-2 col-form-label">Colors</label>
+                            <div className="col-1">
+                                <div style={{
+                                    width: '40px',
+                                    height: '15px',
+                                    marginTop: '10px',
+                                    borderRadius: '2px',
+                                    backgroundColor: this.state.colors
+                                }}>
+                                </div>
+                            </div>
+                            <div className="col-1">
+                                <button type="button" onClick={this.handleButtonColor} className="btn btn-info"><i className="fa fa-plus" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    )
+                }
             }
             return (
                 <Form key={index} {...result} onChange={this.handleChange} onChangeCurrency={this.handleChangeCurrency} onChangeCheckbox={this.handleChangeCheckbox} />
