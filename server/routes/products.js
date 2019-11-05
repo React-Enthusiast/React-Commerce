@@ -4,11 +4,10 @@ const Product = require('../models/product')
 
 router.get('/:fetch', function (req, res) {
     let perPage = 4;
-    let fetch = req.params.fetch;
+    let fetch = req.params.fetch * perPage;
     Product
         .find()
-        .limit(perPage)
-        .skip(perPage * (fetch - 1))
+        .limit(fetch)
         .then(productData => {
             res.json({
                 status: 'SUCCESS',
@@ -24,9 +23,8 @@ router.get('/:fetch', function (req, res) {
 })
 
 router.get('/detail/:id', function (req, res) {
-    let id = req.params.id;
     Product
-        .find({ id })
+        .findOne({ _id: req.params.id })
         .then(productData => {
             res.json({
                 status: 'SUCCESS',
@@ -44,7 +42,7 @@ router.get('/detail/:id', function (req, res) {
 router.post('/', function (req, res) {
     let { id, title, description, brand, price, detail, colors, capacities } = req.body;
     Product
-        .create({ id, title, description, brand, price, detail, colors: colors.replace('[', '').replace(']', '').split(', '), capacities: capacities.replace('[', '').replace(']', '').split(', ') })
+        .create({ id, title, description, brand, price, detail, colors : JSON.parse(colors), capacities : JSON.parse(capacities) })
         .then(productData => {
             res.json({
                 status: 'SUCCESS',
@@ -65,11 +63,11 @@ router.put('/:id', function (req, res) {
     rate ? changedItem.rate = rate : '';
     testimonials ? changedItem.testimonials = JSON.parse(testimonials) : '';
     Product
-        .findOneAndUpdate({ id: Number(req.params.id) }, changedItem)
+        .findOneAndUpdate({ _id: req.params.id }, changedItem)
         .then(item => {
             vote ? item.vote = vote : '';
             rate ? item.rate = rate : '';
-            testimonials ? item.testimonials = JSON.parse(testimonials) : '';
+            testimonials ? item.testimonials = changedItem.testimonials : '';
             res.json({
                 status: 'SUCCESS',
                 productData: item,
