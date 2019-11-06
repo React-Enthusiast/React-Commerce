@@ -1,152 +1,77 @@
 import React from 'react'
 import '../../stylesheets/style.css'
 import Dropzone from './dropzone'
-import Progress from './progresBar'
-
+import Swal from "sweetalert2";
 
 export default class Upload extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            files: [],
-            uploading: false,
-            uploadProgress: {},
-            successfullUploaded: false
-        }
-
-        this.onFilesAdded = this.onFilesAdded.bind(this);
-        this.uploadFiles = this.uploadFiles.bind(this);
-        this.sendRequest = this.sendRequest.bind(this);
-        this.renderActions = this.renderActions.bind(this);
-    }
-
-    onFilesAdded(files) {
-        this.setState(prevState => ({
-            files: prevState.files.concat(files)
-        }));
-    }
-
-    renderProgress(file) {
-        const uploadProgress = this.state.uploadProgress[file.name];
-        if (this.state.uploading || this.state.successfullUploaded) {
-            return (
-                <div className="ProgressWrapper">
-                    <Progress progress={uploadProgress ? uploadProgress.percentage : 0} />
-                    <img
-                        className="CheckIcon"
-                        alt="done"
-                        src="baseline-check_circle_outline-24px.svg"
-                        style={{
-                            opacity:
-                                uploadProgress && uploadProgress.state === "done" ? 0.5 : 0
-                        }}
-                    />
-                </div>
-            );
+            file: "",
+            image: ""
         }
     }
 
-    sendRequest(file) {
-        return new Promise((resolve, reject) => {
-            const req = new XMLHttpRequest();
-
-            req.upload.addEventListener("progress", event => {
-                if (event.lengthComputable) {
-                    const copy = { ...this.state.uploadProgress };
-                    copy[file.name] = {
-                        state: "pending",
-                        percentage: (event.loaded / event.total) * 100
-                    };
-                    this.setState({ uploadProgress: copy });
-                }
-            });
-
-            req.upload.addEventListener("load", event => {
-                const copy = { ...this.state.uploadProgress };
-                copy[file.name] = { state: "done", percentage: 100 };
-                this.setState({ uploadProgress: copy });
-                resolve(req.response);
-            });
-
-            req.upload.addEventListener("error", event => {
-                const copy = { ...this.state.uploadProgress };
-                copy[file.name] = { state: "error", percentage: 0 };
-                this.setState({ uploadProgress: copy });
-                reject(req.response);
-            });
-
-            const formData = new FormData();
-            formData.append("file", file, file.name);
-
-            req.open("POST", "http://localhost:3000/upload");
-            req.send(formData);
-        });
+    handleResetImage = (event) => {
+        event.preventDefault()
+        this.setState({
+            file: '',
+            image: ''
+        })
     }
 
-    renderActions() {
-        if (this.state.successfullUploaded) {
-            return (
-                <button
-                    onClick={() =>
-                        this.setState({ files: [], successfullUploaded: false })
+    onFilesAdded = (file) => {
+        if (file) {
+            // accept all images type file
+            if (file.type.match('image.*')) {
+                if (file.size <= 5 * Math.pow(10, 6)) {
+                    const read = new FileReader()
+                    read.readAsDataURL(file)
+                    // github.com/rofisyahrul
+                    read.onload = (event) => {
+                        this.setState({
+                            file,
+                            image: (
+                                <div className="row justify-content-center">
+                                    <div className="col-12 d-flex flex-column align-self-center">
+                                    <img src={event.target.result} title={file.name} style={{ height: "10rem", border: "1px solid #292929", alignSelf: 'center' }} alt="Uploaded" />
+                                    </div>
+                                    <div className="col-12 d-flex align-self-center my-2">
+                                        <button type="button" onClick={this.handleResetImage} className="btn btn-info mx-auto"><i className="fa fa-ban" aria-hidden="true"> Cancel</i></button>
+                                    </div>
+                                </div>
+                            )
+                        })
+                        this.props.onFileChange(file)
                     }
-                >
-                    Clear
-            </button>
-            );
-        } else {
-            return (
-                <button
-                    disabled={this.state.files.length < 0 || this.state.uploading}
-                    onClick={this.uploadFiles}
-                >
-                    Upload
-            </button>
-            );
-        }
-    }
-
-    async uploadFiles() {
-        this.setState({ uploadProgress: {}, uploading: true });
-        const promises = [];
-        this.state.files.forEach(file => {
-            promises.push(this.sendRequest(file));
-        });
-        try {
-            await Promise.all(promises);
-
-            this.setState({ successfullUploaded: true, uploading: false });
-        } catch (e) {
-            // Not Production ready! Do some error handling here instead...
-            this.setState({ successfullUploaded: true, uploading: false });
+                } else {
+                    Swal.fire({
+                        title: 'Maximum File size exceeded',
+                        text: 'Upload an Image below 5 Mb',
+                        type: 'error'
+                    })
+                }
+            } else {
+                Swal.fire({
+                    title: 'Wrong type File!',
+                    text: "Upload Image Only",
+                    type: 'error'
+                })
+            }
         }
     }
 
     render() {
         return (
-            <div className="App">
-                <div className="Card">
-                    <div className="Upload">
-                        <span className="Title">Upload</span>
-                        <div className="Content">
-                            <div>
-                                <Dropzone onFilesAdded={this.onFilesAdded} disabled={this.state.uploading || this.state.successfullUploaded} />
-                            </div>
-                            <div className="Files">
-                                {this.state.files.map(file => {
-                                    return (
-                                        <div key={file.name} className="Row"><span className="Filename">{file.name}</span>{this.renderProgress(file)}</div>
-                                    )
-                                })}
-                            </div>
-                        </div>
-                        <div className="Actions" >
-                            {this.renderActions()}
-                        </div>
-                    </div>
+            <div className="form-group row">
+                <label htmlFor="file" className="col-sm-2 col-form-label">Upload Image</label>
+                <div className="col-sm-5">
+                    <Dropzone onFilesAdded={this.onFilesAdded} disabled={false} />
+                </div>
+                <div className="col">
+                    {this.state.image}
                 </div>
             </div>
         )
     }
-
 }
