@@ -4,6 +4,7 @@ import { addData } from '../../actions';
 import reactCSS from 'reactcss'
 import { SketchPicker } from 'react-color';
 import { Form } from './form'
+import Upload from './upload'
 
 //github.com/rofisyahrul
 Node.prototype.getParents = function (nth = 0) {
@@ -26,6 +27,7 @@ class FormAdd extends React.Component {
             colors: ['#fff'],
             capacities: [],
             displaypicker: [false],
+            file: ''
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -84,7 +86,8 @@ class FormAdd extends React.Component {
             this.state.testimonials,
             this.state.rate,
             this.state.colors,
-            this.state.capacities
+            this.state.capacities,
+            this.state.file
         )
         this.setState({
             title: '',
@@ -97,7 +100,8 @@ class FormAdd extends React.Component {
             rate: '',
             colors: ['#fff'],
             capacities: [],
-            displaypicker: [false]
+            displaypicker: [false],
+            file: ''
         })
     }
 
@@ -181,6 +185,10 @@ class FormAdd extends React.Component {
             checked: this.state.capacities
         }
     }
+
+    handleFileChange = file => {
+        this.setState({ file });
+      };
 
     // colorPicker() {
     //     if (this.state.displaypicker) {
@@ -287,6 +295,12 @@ class FormAdd extends React.Component {
                                 <button type="button" onClick={this.deleleColor} className="btn btn-danger mx-1"><i className="fa fa-minus" aria-hidden="true"></i></button>
                             )}
                         </div>
+                    </div>
+                )
+            } else if (result.type === 'file') {
+                return (
+                    <div key={index}>
+                        <Upload onFileChange={this.handleFileChange}/>
                     </div>
                 )
             }
