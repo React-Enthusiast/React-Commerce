@@ -1,37 +1,31 @@
 import React, { Component } from 'react'
 import '../../stylesheets/style.css'
-
-
 export default class Dropzone extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            highlight: false
+            hightlight: false
         }
         this.fileInputRef = React.createRef()
-
-        this.onDragOver = this.onDragOver.bind(this);
-        this.onDragLeave = this.onDragLeave.bind(this);
-        this.onDrop = this.onDrop.bind(this);
     }
 
-    onDragOver(event) {
+    onDragOver = (event) => {
         event.preventDefault();
         if (this.props.disabled) return;
         this.setState({ hightlight: true });
     }
 
-    onDragLeave() {
+    onDragLeave = () => {
         this.setState({ hightlight: false });
     }
 
-    onDrop(event) {
+    onDrop = (event) => {
         event.preventDefault();
         if (this.props.disabled) return;
-        const files = event.dataTransfer.files;
+        const file = event.dataTransfer.files;
+        console.log(file);
         if (this.props.onFilesAdded) {
-            const array = this.fileListToArray(files);
-            this.props.onFilesAdded(array);
+            this.props.onFilesAdded(file[0])
         }
         this.setState({ hightlight: false });
     }
@@ -43,41 +37,29 @@ export default class Dropzone extends Component {
 
     onFilesAdded = (event) => {
         if (this.props.disabled) return;
-        const files = event.target.files;
+        const file = event.target.files;
+        console.log(file);
         if (this.props.onFilesAdded) {
-            const array = this.fileListToArray(files)
-            this.props.onFilesAdded(array)
+            this.props.onFilesAdded(file[0])
         }
-    }
-
-    fileListToArray = (list) => {
-        const array = []
-        for (let i = 0; i < list.length; i++) {
-            array.push(list.item(i))
-        }
-        return array
     }
 
     render() {
         return (
-            <div className="App" >
-                <div className="Card" >
-                    <div className={`Dropzone ${this.state.highlight ? 'Highlight' : ''}`} onDragOver={this.onDragOver} onDragLeave={this.onDragLeave} onDrop={this.onDrop} onClick={this.openFileDialog} style={{ cursor: this.props.disabled ? "default" : "pointer" }} >
-                        <img
-                            alt="upload"
-                            className="Icon"
-                            src="cloud_upload-24px.svg"
-                        />
-                        <input
-                            ref={this.fileInputRef}
-                            className="FileInput"
-                            type="file"
-                            multiple
-                            onChange={this.onFilesAdded}
-                        />
-                        <span>Upload Files</span>
-                    </div>
-                </div>
+            <div className={`Dropzone ${this.state.hightlight ? 'hightlight' : ''}`} onDragOver={this.onDragOver} onDragLeave={this.onDragLeave} onDrop={this.onDrop} onClick={this.openFileDialog} style={{ cursor: this.props.disabled ? "default" : "pointer" }} >
+                <img
+                    alt="upload"
+                    className="Icon"
+                    src="cloud_upload-24px.svg"
+                />
+                <input
+                    ref={this.fileInputRef}
+                    className="FileInput"
+                    type="file"
+                    multiple
+                    onChange={this.onFilesAdded}
+                />
+                <span>Upload Image</span>
             </div>
         )
     }
