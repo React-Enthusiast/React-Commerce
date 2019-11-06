@@ -14,7 +14,7 @@ export default class Ecommerce extends React.Component {
                         <h2>Form Add</h2>
                     </div>
                     <div className="card-body">
-                        <Upload />
+                        <FormAdd />
                     </div>
                 </div>
             </div>
