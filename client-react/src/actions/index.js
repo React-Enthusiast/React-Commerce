@@ -8,7 +8,6 @@ import {
     
     LOAD_DETAIL_FAILURE,
     LOAD_DETAIL_SUCCESS,
-    
 
     ADD_VOTE,
     ADD_VOTE_SUCCESS,
@@ -17,10 +16,6 @@ import {
     ADD_RATE,
     ADD_RATE_SUCCESS,
     ADD_RATE_FAILURE,
-    
-    ADD_VOTE,
-    ADD_VOTE_SUCCESS,
-    ADD_VOTE_FAILURE,
     
 } from "../constants/actiontype"
 

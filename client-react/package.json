@@ -4,27 +4,25 @@
   "private": true,
   "dependencies": {
     "axios": "^0.19.0",
-<<<<<<< HEAD
-    "bootstrap": "^4.3.1",
-=======
+    "connected-react-router": "^6.6.0",
     "express-fileupload": "^1.1.6-alpha.6",
->>>>>>> a908adbc256fd0a6842a425fd6859149fc4a2dd9
+    "history": "^4.10.1",
     "react": "^16.11.0",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-color": "^2.17.3",
     "react-currency-input": "^1.3.6",
     "react-dom": "^16.11.0",
     "react-markdown": "^4.2.2",
-    "react-redux": "^7.1.1",
+    "react-rating": "^2.0.1",
+    "react-redux": "^7.1.3",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "reactcss": "^1.2.3",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
-<<<<<<< HEAD
+    "styled-components": "^4.4.1",
     "sweetalert2": "^9.1.4"
-=======
-    "sweetalert2": "^9.1.5"
->>>>>>> a908adbc256fd0a6842a425fd6859149fc4a2dd9
   },
   "scripts": {
     "start": "react-scripts start",

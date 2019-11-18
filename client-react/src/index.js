@@ -1,31 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+
 import * as serviceWorker from './serviceWorker';
 import rootReducer from './reducers';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-// import Ecommerce from './components/Ecommerce';
-import Description from './components/ProductDetail/Description';
+import { ConnectedRouter } from "connected-react-router";
+import { Route, Router } from "react-router-dom";
+import store, { history } from "./configuration";
+
+import Detail from './components/DetailProduct/Detail';
+import FormAdd from './containers/addForm/FormAdd';
+import Ecommerce from './components/Ecommerce';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
-
 // ReactDOM.render(<App />, document.getElementById('root'));
-ReactDOM.render(
+const routing = (
     <Provider store={store}>
-<<<<<<< HEAD
-        <Description description='Adnan Radja' />
-        {/* <Upload /> */}
-        {/* <Dropzone /> */}
-=======
-        <Ecommerce />
->>>>>>> a908adbc256fd0a6842a425fd6859149fc4a2dd9
-    </Provider>,
-    document.getElementById('root')
-);
+      <ConnectedRouter history={history}>
+        <Router history={history}>
+          <Route exact path="/" component={Ecommerce} />
+          <Route path="/add" component={FormAdd} />
+          <Route path="/detail" component={Detail} />
+        </Router>
+      </ConnectedRouter>
+    </Provider>
+  );
+  
+  ReactDOM.render(routing, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

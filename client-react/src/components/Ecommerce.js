@@ -1,5 +1,5 @@
 import React from 'react';
-import FormAdd from '../containers/addForm/formAdd'
+import FormAdd from '../containers/addForm/FormAdd'
 import ListProduct from '../containers/listProduct'
 export default class Ecommerce extends React.Component {
 
