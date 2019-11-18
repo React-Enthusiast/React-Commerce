@@ -16,8 +16,6 @@ const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 ReactDOM.render(
     <Provider store={store}>
         <Ecommerce />
-        {/* <Upload /> */}
-        {/* <Dropzone /> */}
     </Provider>,
     document.getElementById('root')
 );
