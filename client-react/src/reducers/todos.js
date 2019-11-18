@@ -6,12 +6,13 @@ import {
     ADD_DATA_FAILURE,
     DELETE_DATA,
     DELETE_DATA_SUCCESS,
-    DELETE_DATA_FAILURE
+    DELETE_DATA_FAILURE,
+    ADD_RATE_FAILURE
 } from "../constants/actiontype"
 
 const todos = (state = [], action) => {
 
-    switch(action.type) {
+    switch (action.type) {
         case ADD_DATA:
             return [
                 ...state,
@@ -22,13 +23,17 @@ const todos = (state = [], action) => {
                     brand: action.brand,
                     price: action.price,
                     detail: action.detail,
-                    vote: action.vote,
-                    testimonials: action.testimonials,
-                    rate: action.rate,
                     colors: action.colors,
                     capacities: action.capacities
                 }
             ]
+
+        case ADD_DATA_SUCCESS:
+            return state.map(data => {
+                return data
+            })
+
+        case ADD_DATA_FAILURE:
         default:
             return state
     }
