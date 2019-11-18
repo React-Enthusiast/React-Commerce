@@ -1,15 +1,13 @@
 import {
-    LOAD_DATA_SUCCESS,
-    LOAD_DATA_FAILURE,
+    LOAD_PRODUCT_SUCCESS,
+    LOAD_PRODUCT_FAILURE,
+
     ADD_DATA,
     ADD_DATA_SUCCESS,
-    ADD_DATA_FAILURE,
-    DELETE_DATA,
-    DELETE_DATA_SUCCESS,
-    DELETE_DATA_FAILURE
+    ADD_DATA_FAILURE
 } from "../constants/actiontype"
 
-const todos = (state = [], action) => {
+const products = (state = [], action) => {
 
     switch(action.type) {
         case ADD_DATA:
@@ -35,4 +33,4 @@ const todos = (state = [], action) => {
 
 }
 
-export default todos
+export default products
