@@ -8,11 +8,11 @@ import {
     ADD_DATA,
     ADD_DATA_SUCCESS,
     ADD_DATA_FAILURE,
-    
+
     ADD_VOTE,
     ADD_VOTE_SUCCESS,
     ADD_VOTE_FAILURE,
-    
+
     ADD_RATE,
     ADD_RATE_SUCCESS,
     ADD_RATE_FAILURE,
@@ -43,14 +43,14 @@ export const loadProduct = (fetch) => {
             .then(function (response) {
                 if (response.data.status === 'SUCCESS')
                     dispatch(loadProductSuccess(response.data.productData));
-                else{
+                else {
                     dispatch(loadProductFailure());
                     Swal.fire({
                         icon: 'error',
                         title: 'Connection Lost',
                         showConfirmButton: false,
                         timer: 1500
-                      })
+                    })
                 }
             })
             .catch(function (error) {
@@ -61,7 +61,7 @@ export const loadProduct = (fetch) => {
                     title: 'Connection Lost',
                     showConfirmButton: false,
                     timer: 1500
-                  })
+                })
             })
     }
 }
@@ -81,14 +81,14 @@ export const loadProductDetail = (id) => {
             .then(function (response) {
                 if (response.data.status === 'SUCCESS')
                     dispatch(loadProductDetailSuccess(response.data.productData));
-                else{
+                else {
                     dispatch(loadProductDetailFailure());
                     Swal.fire({
                         icon: 'error',
                         title: 'Connection Lost',
                         showConfirmButton: false,
                         timer: 1500
-                      })
+                    })
                 }
             })
             .catch(function (error) {
@@ -99,107 +99,107 @@ export const loadProductDetail = (id) => {
                     title: 'Connection Lost',
                     showConfirmButton: false,
                     timer: 1500
-                  })
+                })
             })
     }
 }
 
 // START ADD VOTE
 const voteProductRedux = (id, lastVoteSum) => {
-    return { type : ADD_VOTE, id, vote : lastVoteSum }
+    return { type: ADD_VOTE, id, vote: lastVoteSum }
 }
 
 const voteProductSuccess = () => {
-    return { type : ADD_VOTE_SUCCESS }
+    return { type: ADD_VOTE_SUCCESS }
 }
 
 const voteProductFailure = () => {
-    return { type : ADD_VOTE_FAILURE }
+    return { type: ADD_VOTE_FAILURE }
 }
 
 export const voteProduct = (id, lastVoteSum) => {
     return dispatch => {
         dispatch(voteProductRedux(id, lastVoteSum));
         return request.put(`products/${id}`)
-        .then(function (response) {
-            if (response.data.status === 'SUCCESS')
-                dispatch(voteProductSuccess(id, lastVoteSum));
-            else
+            .then(function (response) {
+                if (response.data.status === 'SUCCESS')
+                    dispatch(voteProductSuccess(id, lastVoteSum));
+                else
+                    dispatch(voteProductFailure());
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Connection Lost',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            })
+            .catch(function (error) {
+                console.log(error);
                 dispatch(voteProductFailure());
                 Swal.fire({
                     icon: 'error',
                     title: 'Connection Lost',
                     showConfirmButton: false,
                     timer: 1500
-                  })
-        })
-        .catch(function (error) {
-            console.log(error);
-            dispatch(voteProductFailure());
-            Swal.fire({
-                icon: 'error',
-                title: 'Connection Lost',
-                showConfirmButton: false,
-                timer: 1500
-              })
-        })
+                })
+            })
     }
 }
 
 // START ADD RATE
 const rateProductRedux = (id, lastRate, newTestimonial) => {
-    return { type : ADD_RATE, id, rate: lastRate, testimonials: newTestimonial }
+    return { type: ADD_RATE, id, rate: lastRate, testimonials: newTestimonial }
 }
 
 const rateProductSuccess = () => {
-    return { type : ADD_RATE_SUCCESS };
+    return { type: ADD_RATE_SUCCESS };
 }
 
 const rateProductFailure = () => {
-    return { type : ADD_RATE_FAILURE };
+    return { type: ADD_RATE_FAILURE };
 }
 
 export const rateProduct = (id, lastRate, newTestimonial) => {
     return dispatch => {
         dispatch(rateProductRedux(id, lastRate, newTestimonial));
         return request.put(`products/${id}`)
-        .then(function (response) {
-            if (response.data.status === 'SUCCESS')
-                dispatch(rateProductSuccess());
-            else{
+            .then(function (response) {
+                if (response.data.status === 'SUCCESS')
+                    dispatch(rateProductSuccess());
+                else {
+                    dispatch(rateProductFailure());
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Connection Lost',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
                 dispatch(rateProductFailure());
                 Swal.fire({
                     icon: 'error',
                     title: 'Connection Lost',
                     showConfirmButton: false,
                     timer: 1500
-                  })
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-            dispatch(rateProductFailure());
-            Swal.fire({
-                icon: 'error',
-                title: 'Connection Lost',
-                showConfirmButton: false,
-                timer: 1500
-              })
-        })
+                })
+            })
     }
 }
 
 // START ADD PRODUCT
-const addDataSuccess = () => ({
+export const addDataSuccess = () => ({
     type: ADD_DATA_SUCCESS
 })
 
-const addDataFailure = (id) => ({
+export const addDataFailure = (id) => ({
     type: ADD_DATA_FAILURE,
     id
 })
 
-const addDataRedux = (id, title, description, brand, price, detail, vote, testimonial, rate, colors, capacities) => ({
+const addDataRedux = (id, title, description, brand, price, detail, colors, capacities) => ({
     type: ADD_DATA,
     id,
     title,
@@ -207,23 +207,21 @@ const addDataRedux = (id, title, description, brand, price, detail, vote, testim
     brand,
     price,
     detail,
-    vote,
-    testimonial,
-    rate,
-    colors,
-    capacities
+    ...(colors instanceof Array && { colors: JSON.stringify(colors) }),
+    ...(capacities instanceof Array && { capacities: JSON.stringify(capacities) })
+    // colors: JSON.stringify(colors),
+    // capacities: JSON.stringify(capacities)
 })
 
-export const addData = (title, description, brand, price, detail, vote, testimonial, rate, colors, capacities) => {
+export const addData = (title, description, brand, price, detail, colors, capacities) => {
     let id = Date.now();
     return dispatch => {
-        dispatch(addDataRedux(id, title, description, brand, price, detail, vote, testimonial, rate, colors, capacities))
-        return request.post('', { id, title, description, brand, price, detail, vote, testimonial, rate, colors, capacities })
-            .then(response => {
-                dispatch(addDataSuccess(response.data))
-            }).catch(error => {
-                dispatch(addDataFailure(id))
-            })
+        dispatch(addDataRedux(id, title, description, brand, price, detail, colors, capacities))
+        return request.post('products', { id, title, description, brand, price, detail, colors, capacities }).then(response => {
+            dispatch(addDataSuccess(response.data.itemAdded))
+        }).catch(error => {
+            dispatch(addDataFailure(id))
+        })
     }
 }
 
