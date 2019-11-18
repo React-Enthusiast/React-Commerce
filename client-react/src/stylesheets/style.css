@@ -1,24 +1,3 @@
-.App {
-    text-align: center;
-    background-color: rgb(206, 213, 223);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-}
-
-.Card {
-    background-color: white;
-    padding: 64px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08);
-    box-sizing: border-box;
-}
-
 .Upload {
     display: flex;
     flex-direction: column;
@@ -102,28 +81,27 @@
     box-sizing: border-box;
 }
 
-.ProgressBar {
-    width: 100%;
-    height: 8px;
-    background-color: rgb(183, 155, 229);
-    border-radius: 5px;
+/* STARS */
+
+span.stars, span.stars span {
+    display: block;
+    background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Font_Awesome_5_regular_star_grey.svg/512px-Font_Awesome_5_regular_star_grey.svg.png) 0 0 repeat-x;
+    width: 5rem;
+    /* width of a star multiplied by 5 */
+    height: 1rem;
+    /* the height of the star */
+    background-size: 1rem 1rem;
 }
 
-.Progress {
-    background-color: rgba(103, 58, 183, 1);
-    height: 100%;
-    margin: 0;
-    border-radius: 5px;
+span.stars span {
+    background-position: 0 0;
+    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/747/star.svg);
 }
 
-.CheckIcon {
-    opacity: 0.5;
-    margin-left: 32px;
-}
+/* for card responsive */
 
-.ProgressWrapper {
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-    align-items: center;
+.card-deck {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: .5rem;
 }
