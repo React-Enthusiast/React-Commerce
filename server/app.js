@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
 var cors = require('cors');
+const fileUpload = require('express-fileupload');
 
 mongoose.connect('mongodb://localhost:27017/recommerce', {
   useNewUrlParser: true,
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload({ limits: { fileSize: 3 * 1024 * 1024 } }));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

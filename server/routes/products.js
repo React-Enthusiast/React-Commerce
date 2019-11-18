@@ -42,12 +42,25 @@ router.get('/detail/:id', function (req, res) {
 
 router.post('/', function (req, res) {
     let { id, title, description, brand, price, detail, colors, capacities } = req.body;
+    // console.log(JSON.parse(colors));
+    // console.log(JSON.parse(capacities));
+    // let { file } = req.files
+    // let filename = `${id}-${file.name}`
     Product
-        .create({ id, title, description, brand, price, detail, colors, capacities })
+        .create({
+            id,
+            title,
+            description,
+            brand,
+            price,
+            detail,
+            ...(capacities && { capacities: capacities }),
+            ...(colors && { colors: colors })
+        })
         .then(productData => {
             res.json({
                 status: 'SUCCESS',
-                productData
+                itemAdded: productData
             })
         })
         .catch(err => {

@@ -16,9 +16,13 @@ const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 // ReactDOM.render(<App />, document.getElementById('root'));
 ReactDOM.render(
     <Provider store={store}>
+<<<<<<< HEAD
         <Description description='Adnan Radja' />
         {/* <Upload /> */}
         {/* <Dropzone /> */}
+=======
+        <Ecommerce />
+>>>>>>> a908adbc256fd0a6842a425fd6859149fc4a2dd9
     </Provider>,
     document.getElementById('root')
 );

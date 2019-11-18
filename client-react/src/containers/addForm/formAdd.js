@@ -4,6 +4,7 @@ import { addData } from '../../actions';
 import reactCSS from 'reactcss'
 import { SketchPicker } from 'react-color';
 import { Form } from './form'
+import Upload from './upload'
 
 //github.com/rofisyahrul
 Node.prototype.getParents = function (nth = 0) {
@@ -20,12 +21,10 @@ class FormAdd extends React.Component {
             brand: '',
             price: '',
             detail: '',
-            vote: '',
-            testimonials: '',
-            rate: '',
             colors: ['#fff'],
             capacities: [],
             displaypicker: [false],
+            file: ''
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -35,10 +34,11 @@ class FormAdd extends React.Component {
         this.handleChangeColor = this.handleChangeColor.bind(this)
         this.handleChangeCurrency = this.handleChangeCurrency.bind(this)
         this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this)
+        this.selectCapacities = this.selectCapacities.bind(this)
     }
 
     //github.com/rofisyahrul
-    convertPrice = (price = 0, currency = "Rp. ") => {
+    convertPrice = (price = 0, currency = "Rp.") => {
         price = price
             .toString()
             .replace(/\D/g, "")
@@ -63,15 +63,6 @@ class FormAdd extends React.Component {
         })
     }
 
-    handleChangeCheckbox(event, name) {
-        let { value, checked } = event.target
-        if (checked) {
-            this.setState({
-                [name]: value
-            })
-        }
-    }
-
     handleSubmit(event) {
         event.preventDefault();
         this.props.addData(
@@ -80,11 +71,9 @@ class FormAdd extends React.Component {
             this.state.brand,
             this.state.price,
             this.state.detail,
-            this.state.vote,
-            this.state.testimonials,
-            this.state.rate,
             this.state.colors,
-            this.state.capacities
+            this.state.capacities,
+            this.state.file
         )
         this.setState({
             title: '',
@@ -92,12 +81,10 @@ class FormAdd extends React.Component {
             brand: '',
             price: '',
             detail: '',
-            vote: '',
-            testimonials: '',
-            rate: '',
             colors: ['#fff'],
             capacities: [],
-            displaypicker: [false]
+            displaypicker: [false],
+            file: ''
         })
     }
 
@@ -170,7 +157,20 @@ class FormAdd extends React.Component {
         }))
     }
 
-    selectCapacities = () => {
+    handleChangeCheckbox(event, name) {
+        let { value, checked, target } = event.target
+        if (checked) {
+            this.setState(state => ({
+                [name]: [...state[name], value]
+            }))
+        } else {
+            this.setState(state => ({
+                [name]: state[name].filter(x => x !== value)
+            }))
+        }
+    }
+
+    selectCapacities() {
         return {
             name: 'capacities',
             label: 'Capacity',
@@ -181,6 +181,10 @@ class FormAdd extends React.Component {
             checked: this.state.capacities
         }
     }
+
+    handleFileChange = file => {
+        this.setState({ file });
+    };
 
     // colorPicker() {
     //     if (this.state.displaypicker) {
@@ -216,8 +220,11 @@ class FormAdd extends React.Component {
     // }
 
     render() {
-        // console.log(this.state.title);
-        let { price, title, description, brand, detail, vote, testimonials, rate, colors } = this.state
+        console.log(JSON.stringify(this.state.colors));
+        console.log(JSON.stringify(this.state.capacities));
+        console.log(this.state.colors);
+        console.log(this.state.capacities);
+        let { price, title, description, brand, detail, colors, capacities } = this.state
         let forms = [
             { name: 'title', type: 'text', label: 'Title', value: title },
             { name: 'description', type: 'textarea', label: 'Description', row: '5', value: description },
@@ -289,6 +296,12 @@ class FormAdd extends React.Component {
                         </div>
                     </div>
                 )
+            } else if (result.type === 'file') {
+                return (
+                    <div key={index}>
+                        <Upload onFileChange={this.handleFileChange} />
+                    </div>
+                )
             }
             return (
                 <Form key={index} {...result} onChange={this.handleChange} onChangeCurrency={this.handleChangeCurrency} onChangeCheckbox={this.handleChangeCheckbox} />
@@ -296,13 +309,22 @@ class FormAdd extends React.Component {
         })
 
         return (
-            <form onSubmit={this.handleSubmit}>
-                {item}
-                <div className="form-group col-md-4 my-5">
-                    <button type="button" className="btn btn-success mr-2"><i className="fas fa-check"></i> Save</button>
-                    <button type="reset" className="btn btn-danger"> <i className="fas fa-undo"></i> Cancel</button>
+            <div className="container my-5">
+                <div className="card">
+                    <div className="card-header text-center">
+                        <h2>Form Add Product</h2>
+                    </div>
+                    <div className="card-body">
+                        <form onSubmit={this.handleSubmit}>
+                            {item}
+                            <div className="form-group col-md-4 my-5">
+                                <button type="submit" className="btn btn-success mr-2"><i className="fas fa-check"></i> Save</button>
+                                <button type="reset" className="btn btn-danger"> <i className="fas fa-undo"></i> Cancel</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </form>
+            </div>
         )
 
         // return (

@@ -1,7 +1,7 @@
 import React from 'react'
 
 export function Form(props) {
-    let { name, label, type, min, max, onChange, inputMode, values, value,onChangeCurrency, onChangeCheckbox } = props;
+    let { name, label, type, min, max, onChange, inputMode, values, value, onChangeCurrency, onChangeCheckbox, checked } = props;
     if (type === 'text') {
         return (
             <div className="form-group row my-3">
@@ -20,17 +20,17 @@ export function Form(props) {
                 </div>
             </div>
         )
-    } 
-    else if (type === 'money'){
+    }
+    else if (type === 'money') {
         return (
             <div className="form-group row my-3">
                 <label className="col-sm-2 col-form-label" htmlFor={name}>{label}</label>
                 <div className="col-sm-10">
-                    <input name={name} type="text" className="form-control" id={name} inputMode={inputMode || 'text'} placeholder={label} onChange={onChangeCurrency} required={true} value={value}/>
+                    <input name={name} type="text" className="form-control" id={name} inputMode={inputMode || 'text'} placeholder={label} onChange={onChangeCurrency} required={true} value={value} />
                 </div>
             </div>
         )
-    } 
+    }
     else if (type === 'textarea') {
         return (
             <div className="form-group row my-3">
@@ -41,13 +41,14 @@ export function Form(props) {
             </div>
         )
     } else if (type === 'checkbox') {
+        // console.log(props.checked)
         return (
             <div className="form-group row d-flex justify-items-center my-3">
                 <label htmlFor={label} className="col-sm-2 col-form-label">{label}</label>
                 {props.values.map((value, index) => (
                     <div key={index} className="col mt-2">
-                        <div  className="custom-control custom-checkbox col">
-                            <input type="checkbox" className="custom-control-input" id={props.nomor[index]} value={value} checked={props.checked.includes(value.toString())} onChange={event => onChangeCheckbox(event, name)} />
+                        <div className="custom-control custom-checkbox col">
+                            <input type="checkbox" className="custom-control-input" id={props.nomor[index]} value={value} name={name} onChange={event => onChangeCheckbox(event, name)} checked={props.checked.includes(value.toString())} />
                             <label className="custom-control-label" htmlFor={props.nomor[index]}>{props.options[index]}</label>
                         </div>
                     </div>
