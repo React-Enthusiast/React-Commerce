@@ -30,12 +30,25 @@
   <!-- lato css -->
   <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
   <script src="https://kit.fontawesome.com/d8ee6b40b3.js" crossorigin="anonymous"></script>
+  <style>
+    html,
+    body {
+      height: 100%;
+      background-color: #333;
+      font-family: 'Lato' !important;
+    }
 
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  </style>
 </head>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root" class="container"></div>
+  <div id="root"></div>
   <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
