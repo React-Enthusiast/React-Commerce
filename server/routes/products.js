@@ -9,7 +9,8 @@ router.get('/:fetch', function (req, res) {
     let fetch = req.params.fetch * perPage;
     Product
         .find()
-        .limit(fetch)
+        .limit(perPage)
+        .skip(fetch)
         .then(productData => {
             res.json({
                 status: 'SUCCESS',
@@ -19,7 +20,7 @@ router.get('/:fetch', function (req, res) {
         .catch(err => {
             res.json({
                 status: 'FAILED',
-                message: err
+                message: 'Connection Error'
             })
         })
 })
@@ -36,7 +37,7 @@ router.get('/detail/:id', function (req, res) {
         .catch(err => {
             res.json({
                 status: 'FAILED',
-                message: err
+                message: 'Connection Error'
             })
         })
 })
@@ -69,7 +70,7 @@ router.post('/', function (req, res) {
         }).catch(err => {
             res.json({
                 status: 'FAILED',
-                message: err
+                message: 'Connection Error'
             })
         })
     })
@@ -77,6 +78,7 @@ router.post('/', function (req, res) {
 
 router.put('/:id', function (req, res) {
     let { vote, testimonials, rate } = req.body;
+    let changedItem = {};
     vote ? changedItem.vote = vote : '';
     rate ? changedItem.rate = rate : '';
     testimonials ? changedItem.testimonials = JSON.parse(testimonials) : '';
@@ -94,7 +96,7 @@ router.put('/:id', function (req, res) {
         .catch(err => {
             res.json({
                 status: 'FAILED',
-                message: err
+                message: 'Connection Error'
             })
         })
 })
