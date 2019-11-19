@@ -53,3 +53,5 @@ const details = (state = {}, action) => {
             return state
     }
 }   
+
+export default details

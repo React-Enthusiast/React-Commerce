@@ -2,10 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import * as serviceWorker from './serviceWorker';
-import rootReducer from './reducers';
-import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
 import { ConnectedRouter } from "connected-react-router";
 import { Route, Router } from "react-router-dom";
 import store, { history } from "./configuration";
@@ -13,7 +10,6 @@ import store, { history } from "./configuration";
 import Detail from './components/DetailProduct/Detail';
 import FormAdd from './containers/addForm/FormAdd';
 import Ecommerce from './components/Ecommerce';
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // ReactDOM.render(<App />, document.getElementById('root'));
 const routing = (
