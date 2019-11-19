@@ -5,8 +5,6 @@ import { Tabs, Tab, ToggleButtonGroup, ToggleButton, ButtonToolbar, Button } fro
 import Star from '../MiniComponents/Stars'
 import BuyModal from './BuyModal'
 
-
-
 export default class Detail extends Component {
     constructor(props) {
         super(props);

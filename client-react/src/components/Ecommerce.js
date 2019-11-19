@@ -7,7 +7,7 @@ export default class Ecommerce extends React.Component {
         return (
             <div className="container-fluid ">
                 <div className="card card-responsive-width" style={{ padding: '5vh' }}>
-                    <FormAdd />
+                    {/* <FormAdd /> */}
                 </div>
             </div>
         )
