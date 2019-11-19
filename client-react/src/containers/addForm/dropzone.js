@@ -23,7 +23,7 @@ export default class Dropzone extends Component {
         event.preventDefault();
         if (this.props.disabled) return;
         const file = event.dataTransfer.files;
-        console.log(file);
+        // console.log(file);
         if (this.props.onFilesAdded) {
             this.props.onFilesAdded(file[0])
         }
@@ -38,7 +38,7 @@ export default class Dropzone extends Component {
     onFilesAdded = (event) => {
         if (this.props.disabled) return;
         const file = event.target.files;
-        console.log(file);
+        // console.log(file);
         if (this.props.onFilesAdded) {
             this.props.onFilesAdded(file[0])
         }

@@ -7,7 +7,7 @@ export default class Upload extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            file: "",
+            file: {},
             image: ""
         }
     }
@@ -15,7 +15,7 @@ export default class Upload extends React.Component {
     handleResetImage = (event) => {
         event.preventDefault()
         this.setState({
-            file: '',
+            file: {},
             image: ''
         })
     }
@@ -34,7 +34,7 @@ export default class Upload extends React.Component {
                             image: (
                                 <div className="row justify-content-center">
                                     <div className="col-12 d-flex flex-column align-self-center">
-                                    <img src={event.target.result} title={file.name} style={{ height: "10rem", border: "1px solid #292929", alignSelf: 'center' }} alt="Uploaded" />
+                                        <img src={event.target.result} title={file.name} style={{ height: "10rem", border: "1px solid #292929", alignSelf: 'center' }} alt="Uploaded" />
                                     </div>
                                     <div className="col-12 d-flex align-self-center my-2">
                                         <button type="button" onClick={this.handleResetImage} className="btn btn-info mx-auto"><i className="fa fa-ban" aria-hidden="true"> Cancel</i></button>

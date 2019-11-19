@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const Product = require('../models/product')
+var path = require('path');
+
 
 router.get('/:fetch', function (req, res) {
     let perPage = 4;
@@ -39,14 +41,17 @@ router.get('/detail/:id', function (req, res) {
         })
 })
 
+// add products
 router.post('/', function (req, res) {
     let { id, title, description, brand, price, detail, colors, capacities } = req.body;
     // console.log(JSON.parse(colors));
     // console.log(JSON.parse(capacities));
-    // let { file } = req.files
-    // let filename = `${id}-${file.name}`
-    Product
-        .create({
+    console.log(req.files);
+    let { file } = req.files
+    let filename = `${id}-${file.name}`
+    file.mv(path.join(__dirname, '..', 'public', 'images', filename), err => {
+        if (err) console.log(err);
+        Product.create({
             id,
             title,
             description,
@@ -54,20 +59,20 @@ router.post('/', function (req, res) {
             price,
             detail,
             ...(capacities && { capacities: capacities }),
-            ...(colors && { colors: colors })
-        })
-        .then(productData => {
+            ...(colors && { colors: colors }),
+            filename: '/images/' + filename
+        }).then(productData => {
             res.json({
                 status: 'SUCCESS',
                 itemAdded: productData
             })
-        })
-        .catch(err => {
+        }).catch(err => {
             res.json({
                 status: 'FAILED',
                 message: err
             })
         })
+    })
 })
 
 router.put('/:id', function (req, res) {
