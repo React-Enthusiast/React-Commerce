@@ -200,7 +200,7 @@ export const addDataFailure = (id) => ({
     id
 })
 
-const addDataRedux = (id, title, description, brand, price, detail, colors, capacities) => ({
+const addDataRedux = (id, title, description, brand, price, detail, colors, capacities, file) => ({
     type: ADD_DATA,
     id,
     title,
@@ -209,16 +209,17 @@ const addDataRedux = (id, title, description, brand, price, detail, colors, capa
     price,
     detail,
     ...(colors instanceof Array && { colors: JSON.stringify(colors) }),
-    ...(capacities instanceof Array && { capacities: JSON.stringify(capacities) })
+    ...(capacities instanceof Array && { capacities: JSON.stringify(capacities) }),
+    file:
     // colors: JSON.stringify(colors),
     // capacities: JSON.stringify(capacities)
 })
 
-export const addData = (title, description, brand, price, detail, colors, capacities) => {
+export const addData = (title, description, brand, price, detail, colors, capacities, file) => {
     let id = Date.now();
     return dispatch => {
-        dispatch(addDataRedux(id, title, description, brand, price, detail, colors, capacities))
-        return request.post('products', { id, title, description, brand, price, detail, colors, capacities }).then(response => {
+        dispatch(addDataRedux(id, title, description, brand, price, detail, colors, capacities, file))
+        return request.post('products', { id, title, description, brand, price, detail, colors, capacities, file }).then(response => {
             dispatch(addDataSuccess(response.data.itemAdded))
         }).catch(error => {
             dispatch(addDataFailure(id))

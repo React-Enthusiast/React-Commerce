@@ -24,7 +24,7 @@ class FormAdd extends React.Component {
             colors: ['#fff'],
             capacities: [],
             displaypicker: [false],
-            file: ''
+            file: {}
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -84,7 +84,7 @@ class FormAdd extends React.Component {
             colors: ['#fff'],
             capacities: [],
             displaypicker: [false],
-            file: ''
+            file: {}
         })
     }
 
@@ -315,7 +315,7 @@ class FormAdd extends React.Component {
                         <h2>Form Add Product</h2>
                     </div>
                     <div className="card-body">
-                        <form onSubmit={this.handleSubmit}>
+                        <form onSubmit={this.handleSubmit} encType="multipart/form-data">
                             {item}
                             <div className="form-group col-md-4 my-5">
                                 <button type="submit" className="btn btn-success mr-2"><i className="fas fa-check"></i> Save</button>
