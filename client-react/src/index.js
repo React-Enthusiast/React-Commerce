@@ -8,7 +8,7 @@ import { Route, Router } from "react-router-dom";
 import store, { history } from "./configuration";
 
 import Detail from './components/DetailProduct/Detail';
-import FormAdd from './containers/addForm/formAdd';
+import FormAdd from './containers/addForm/FormAdd';
 import Ecommerce from './components/Ecommerce';
 
 // ReactDOM.render(<App />, document.getElementById('root'));
