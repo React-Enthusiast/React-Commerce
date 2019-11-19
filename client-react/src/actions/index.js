@@ -200,7 +200,7 @@ export const addDataFailure = (id) => ({
     id
 })
 
-const addDataRedux = (id, title, description, brand, price, detail, colors, capacities, file) => ({
+const addDataRedux = (id, title, description, brand, price, detail, colors, capacities, filename) => ({
     type: ADD_DATA,
     id,
     title,
@@ -210,16 +210,41 @@ const addDataRedux = (id, title, description, brand, price, detail, colors, capa
     detail,
     ...(colors instanceof Array && { colors: JSON.stringify(colors) }),
     ...(capacities instanceof Array && { capacities: JSON.stringify(capacities) }),
-    // file:
+    ...(filename && { filename })
     // colors: JSON.stringify(colors),
     // capacities: JSON.stringify(capacities)
 })
 
-export const addData = (title, description, brand, price, detail, colors, capacities, file) => {
+export const addData = (title, description, brand, price, detail, colors, capacities, filename) => {
     let id = Date.now();
+    console.log('filename', filename);
+    console.log('redux', addDataRedux(filename));
+
     return dispatch => {
-        dispatch(addDataRedux(id, title, description, brand, price, detail, colors, capacities, file))
-        return request.post('products', { id, title, description, brand, price, detail, colors, capacities, file }).then(response => {
+        dispatch(addDataRedux(id, title, description, brand, price, detail, colors, capacities, filename))
+
+        let itemSent = {
+            id,
+            title,
+            description,
+            brand,
+            price,
+            detail,
+            ...(colors instanceof Array && { colors: JSON.stringify(colors) }),
+            ...(capacities instanceof Array && { capacities: JSON.stringify(capacities) }),
+            ...(filename && { filename })
+        }
+
+        const formData = new FormData();
+        Object.keys(itemSent).forEach(key => {
+            formData.append(key, itemSent[key])
+        })
+        return request.post('products', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(response => {
+            console.log('response', response);
             dispatch(addDataSuccess(response.data.itemAdded))
         }).catch(error => {
             dispatch(addDataFailure(id))
