@@ -7,7 +7,7 @@ import rootReducer from './reducers';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-// import Ecommerce from './components/Ecommerce';
+import Ecommerce from './components/Ecommerce';
 import Description from './components/ProductDetail/Description';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -16,14 +16,8 @@ const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 // ReactDOM.render(<App />, document.getElementById('root'));
 ReactDOM.render(
     <Provider store={store}>
-<<<<<<< HEAD
-        <Description description='Adnan Radja' />
-        {/* <Upload /> */}
-        {/* <Dropzone /> */}
-=======
-        <Ecommerce />
->>>>>>> a908adbc256fd0a6842a425fd6859149fc4a2dd9
-    </Provider>,
+        <Ecommerce /> // udin
+    </Provider >,
     document.getElementById('root')
 );
 

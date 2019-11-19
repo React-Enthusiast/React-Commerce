@@ -1,14 +1,14 @@
 import {
     LOAD_PRODUCT_SUCCESS,
     LOAD_PRODUCT_FAILURE,
-    
+
     ADD_DATA,
     ADD_DATA_SUCCESS,
     ADD_DATA_FAILURE,
-    
+
     LOAD_DETAIL_FAILURE,
     LOAD_DETAIL_SUCCESS,
-    
+
 
     ADD_VOTE,
     ADD_VOTE_SUCCESS,
@@ -17,11 +17,11 @@ import {
     ADD_RATE,
     ADD_RATE_SUCCESS,
     ADD_RATE_FAILURE,
-    
+
     ADD_VOTE,
     ADD_VOTE_SUCCESS,
     ADD_VOTE_FAILURE,
-    
+
 } from "../constants/actiontype"
 
 import axios from 'axios'
@@ -215,7 +215,7 @@ const addDataRedux = (id, title, description, brand, price, detail, colors, capa
     detail,
     ...(colors instanceof Array && { colors: JSON.stringify(colors) }),
     ...(capacities instanceof Array && { capacities: JSON.stringify(capacities) }),
-    file:
+    // file:
     // colors: JSON.stringify(colors),
     // capacities: JSON.stringify(capacities)
 })
