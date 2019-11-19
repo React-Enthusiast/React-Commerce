@@ -210,7 +210,7 @@ const addDataRedux = (id, title, description, brand, price, detail, colors, capa
     detail,
     ...(colors instanceof Array && { colors: JSON.stringify(colors) }),
     ...(capacities instanceof Array && { capacities: JSON.stringify(capacities) }),
-    file:
+    // file:
     // colors: JSON.stringify(colors),
     // capacities: JSON.stringify(capacities)
 })
