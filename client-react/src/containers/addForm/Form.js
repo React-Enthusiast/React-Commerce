@@ -46,7 +46,7 @@ export function Form(props) {
             <div className="form-group row d-flex justify-items-center my-3">
                 <label htmlFor={label} className="col-sm-2 col-form-label">{label}</label>
                 {props.values.map((value, index) => (
-                    <div key={index} className="col mt-2">
+                    <div key={index} className="col-auto mt-2">
                         <div className="custom-control custom-checkbox col">
                             <input type="checkbox" className="custom-control-input" id={props.nomor[index]} value={value} name={name} onChange={event => onChangeCheckbox(event, name)} checked={props.checked.includes(value.toString())} />
                             <label className="custom-control-label" htmlFor={props.nomor[index]}>{props.options[index]}</label>

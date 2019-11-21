@@ -9,10 +9,10 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const history = createBrowserHistory();
 
 export default createStore(
-  todoReducers(history), 
+  todoReducers(history),
   composeEnhancers(
     applyMiddleware(
-      routerMiddleware(history), 
+      routerMiddleware(history),
       thunk
     )
   )

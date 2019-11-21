@@ -47,10 +47,13 @@ router.post('/', function (req, res) {
     let { id, title, description, brand, price, detail, colors, capacities } = req.body;
     // console.log(JSON.parse(colors));
     // console.log(JSON.parse(capacities));
-    console.log(req.files);
-    let { file } = req.files
-    let filename = `${id}-${file.name}`
-    file.mv(path.join(__dirname, '..', 'public', 'images', filename), err => {
+    console.log('body api', req.body);
+    console.log('files api', req.files);
+    let { filename } = req.files
+    let { name } = req.files.filename
+    let flname = name.split(' ').join('-')
+    console.log(flname);
+    filename.mv(path.join(__dirname, '..', 'public', 'images', flname), err => {
         if (err) console.log(err);
         Product.create({
             id,
@@ -59,9 +62,9 @@ router.post('/', function (req, res) {
             brand,
             price,
             detail,
-            ...(capacities && { capacities: capacities }),
-            ...(colors && { colors: colors }),
-            filename: '/images/' + filename
+            ...(capacities && { capacities: JSON.parse(capacities) }),
+            ...(colors && { colors: JSON.parse(colors) }),
+            filename: '/images/' + flname
         }).then(productData => {
             res.json({
                 status: 'SUCCESS',

@@ -186,6 +186,14 @@ class FormAdd extends React.Component {
         this.setState({ file });
     };
 
+    // to close image when done adding (not done)
+    handleResetImage = file => {
+        // event.preventDefault()
+        this.setState({
+            file: {}
+        })
+    }
+
     // colorPicker() {
     //     if (this.state.displaypicker) {
     //         return (
@@ -220,10 +228,9 @@ class FormAdd extends React.Component {
     // }
 
     render() {
-        console.log(JSON.stringify(this.state.colors));
-        console.log(JSON.stringify(this.state.capacities));
-        console.log(this.state.colors);
-        console.log(this.state.capacities);
+        // console.log(this.state.file);
+        // console.log(this.state.file.name);
+
         let { price, title, description, brand, detail, colors, capacities } = this.state
         let forms = [
             { name: 'title', type: 'text', label: 'Title', value: title },
@@ -274,7 +281,7 @@ class FormAdd extends React.Component {
                     <div key={index} className="form-group row my-4" >
                         <label htmlFor="colors" className="col-sm-2 col-form-label">Colors</label>
                         {colors.map((color, index) => (
-                            <div key={index} id={`color${index}`} className="col-1">
+                            <div key={index} id={`color${index}`} className="col-auto">
                                 <div style={styles.swatch} onClick={this.handleButtonColor} id={`click${index}`}>
                                     <div style={styles.colors[index]} id={`click${index}`}></div>
                                 </div>
@@ -299,7 +306,7 @@ class FormAdd extends React.Component {
             } else if (result.type === 'file') {
                 return (
                     <div key={index}>
-                        <Upload onFileChange={this.handleFileChange} />
+                        <Upload onFileChange={this.handleFileChange} onReset={this.handleResetImage} />
                     </div>
                 )
             }
@@ -432,7 +439,7 @@ class FormAdd extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    addData: (title, description, brand, price, detail, vote, testimonial, rate, colors, capacities) => dispatch(addData(title, description, brand, price, detail, vote, testimonial, rate, colors, capacities))
+    addData: (title, description, brand, price, detail, vote, testimonial, rate, colors, capacities, file) => dispatch(addData(title, description, brand, price, detail, vote, testimonial, rate, colors, capacities, file))
 })
 
 export default connect(

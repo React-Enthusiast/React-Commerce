@@ -8,23 +8,23 @@ export default class Upload extends React.Component {
         super(props)
         this.state = {
             file: {},
-            image: ""
+            image: ''
         }
     }
 
-    handleResetImage = (event) => {
-        event.preventDefault()
-        this.setState({
-            file: {},
-            image: ''
-        })
-    }
+    // handleResetImage = (event) => {
+    //     event.preventDefault()
+    //     this.setState({
+    //         file: {},
+    //         image: ''
+    //     })
+    // }
 
     onFilesAdded = (file) => {
         if (file) {
             // accept all images type file
             if (file.type.match('image.*')) {
-                if (file.size <= 5 * Math.pow(10, 6)) {
+                if (file.size <= 3 * Math.pow(10, 6)) {
                     const read = new FileReader()
                     read.readAsDataURL(file)
                     // github.com/rofisyahrul
@@ -36,13 +36,15 @@ export default class Upload extends React.Component {
                                     <div className="col-12 d-flex flex-column align-self-center">
                                         <img src={event.target.result} title={file.name} style={{ height: "10rem", border: "1px solid #292929", alignSelf: 'center' }} alt="Uploaded" />
                                     </div>
-                                    <div className="col-12 d-flex align-self-center my-2">
+                                    {/* <div className="col-12 d-flex align-self-center my-2">
                                         <button type="button" onClick={this.handleResetImage} className="btn btn-info mx-auto"><i className="fa fa-ban" aria-hidden="true"> Cancel</i></button>
-                                    </div>
+                                    </div> */}
                                 </div>
                             )
                         })
                         this.props.onFileChange(file)
+                        // to close image when done adding (not done)
+                        this.props.onReset(file)
                     }
                 } else {
                     Swal.fire({

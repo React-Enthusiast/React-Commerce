@@ -12,18 +12,18 @@ import FormAdd from './containers/AddForm/FormAdd';
 import Ecommerce from './components/Ecommerce';
 
 const routing = (
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <Router history={history}>
-          <Route exact path="/" component={Ecommerce} />
-          <Route path="/add" component={FormAdd} />
-          <Route path="/detail" component={Detail} />
-        </Router>
-      </ConnectedRouter>
-    </Provider>
-  );
-  
-  ReactDOM.render(routing, document.getElementById("root"));
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <Router history={history}>
+        <Route exact path="/" component={Ecommerce} />
+        <Route path="/add" component={FormAdd} />
+        <Route path="/detail" component={Detail} />
+      </Router>
+    </ConnectedRouter>
+  </Provider>
+);
+
+ReactDOM.render(routing, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
