@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 class Ecommerce extends React.Component {
 
-    componentWillMount(){
+    componentWillMount() {
         this.props.loadProduct();
     }
 
@@ -14,7 +14,7 @@ class Ecommerce extends React.Component {
         return (
             <div className="container-fluid ">
                 <div className="card card-responsive-width" style={{ padding: '5vh' }}>
-                    <Button variant="primary" className="col-md-2 col-xl-1 col-xm-3 my-3">Add</Button>
+                    <Button variant="primary" className="col-md-2 col-xl-1 col-xm-3 my-3" href="/add">Add</Button>
                     <CardDeck>
                         {console.log(this.props)}
                         {this.props.products.map((value, index) => {
