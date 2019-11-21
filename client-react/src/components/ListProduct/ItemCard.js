@@ -21,20 +21,20 @@ class ItemCard extends Component {
     render() {
         return (
             <React.Fragment>
-                    <Card>
-                        <Card.Img variant="top" style={{ height: '30vw', objectFit: 'cover' }} className="text-center" src={this.props.product.filename} />
-                        <Card.Body>
-                            <Card.Title>{this.props.product.title}</Card.Title>
-                            <Star rate={this.props.product.rate} />
-                            <Card.Text>
-                                {this.props.product.description}
-                            </Card.Text>
-                        </Card.Body>
-                        <Card.Footer className="d-flex justify-content-between">
-                            <h4 className="text-left">{this.props.product.price}</h4>
-                            <Button className="text-right" variant="dark" onClick={this.getDetail.bind(this)}>Detail</Button>
-                        </Card.Footer>
-                    </Card>
+                <Card>
+                    <Card.Img variant="top" style={{ height: '30vw', objectFit: 'cover' }} className="text-center" src={this.props.product.filename} />
+                    <Card.Body>
+                        <Card.Title>{this.props.product.title}</Card.Title>
+                        <Star rate={this.props.product.rate} />
+                        <Card.Text>
+                            {this.props.product.description}
+                        </Card.Text>
+                    </Card.Body>
+                    <Card.Footer className="d-flex justify-content-between">
+                        <h4 className="text-left">{this.props.product.price}</h4>
+                        <Button className="text-right" variant="dark" onClick={this.getDetail.bind(this)}>Detail</Button>
+                    </Card.Footer>
+                </Card>
             </React.Fragment>
         )
     }
