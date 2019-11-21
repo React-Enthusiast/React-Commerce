@@ -112,10 +112,11 @@ class Detail extends Component {
 
                                             <ButtonToolbar>
                                                 <ToggleButtonGroup type="radio" name="options" defaultValue={'#fff'}>
-                                                    {this.props.product.colors.map((value) => {
-                                                        return <ToggleButton variant="outline-primary" value={value} className="mr-2 border rounded" onClick={this.setColor.bind(this)}>
-                                                                    <span className="border border-dark" style={{ backgroundColor: {value}, color: {value} }}>War</span>
-                                                                </ToggleButton>
+                                                    {/* add key = index to map */}
+                                                    {this.props.product.colors.map((value, index) => {
+                                                        return <ToggleButton key={index} variant="outline-primary" value={value} className="mr-2 border rounded" onClick={this.setColor.bind(this)}>
+                                                            <span key={index} className="border border-dark" style={{ backgroundColor: { value }, color: { value } }}>War</span>
+                                                        </ToggleButton>
                                                     })}
                                                 </ToggleButtonGroup>
                                             </ButtonToolbar>
@@ -127,7 +128,7 @@ class Detail extends Component {
                                                     {this.props.product.capacities.map(value => {
                                                         return <ToggleButton variant="outline-primary" value={value} className="mr-2 border rounded" onClick={this.setStorage.bind(this)}>{value} Gb</ToggleButton>
                                                     })}
-                                                    
+
                                                 </ToggleButtonGroup>
                                             </ButtonToolbar>
 
@@ -183,7 +184,7 @@ class Detail extends Component {
                                     <Tab eventKey="description" title="Description">
                                         <DescDetail description={this.props.product.description} />
                                     </Tab>
-                                    {console.log('aduh',this.props.product)}
+                                    {console.log('aduh', this.props.product)}
                                     <Tab eventKey="testimonials" title="Testimonials">
                                         {this.props.product.testimonials.map(value => {
                                             return <ItemTestimonial testimonial={value} />
@@ -204,7 +205,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    onVote: (id, vote) => { dispatch(voteProduct(id,vote)) },
+    onVote: (id, vote) => { dispatch(voteProduct(id, vote)) },
 });
 
 export default connect(
