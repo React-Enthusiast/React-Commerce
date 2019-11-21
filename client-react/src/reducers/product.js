@@ -30,13 +30,26 @@ const products = (state = [], action) => {
                 }
             ]
 
+        // case ADD_DATA:
+        //     return Object.assign({}, state, {
+        //         id: action.id,
+        //         title: action.title,
+        //         description: action.description,
+        //         brand: action.brand,
+        //         price: action.price,
+        //         detail: action.detail,
+        //         colors: action.colors,
+        //         capacities: action.capacities,
+        //         filename: action.filename
+        //     })
+
         case ADD_DATA_SUCCESS:
             return state.map(data => {
                 return data
             })
 
-        case ADD_DATA_FAILURE:
         case LOAD_PRODUCT_FAILURE:
+        case ADD_DATA_FAILURE:
         default:
             return state
     }

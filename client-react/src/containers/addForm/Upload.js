@@ -44,7 +44,7 @@ export default class Upload extends React.Component {
                         })
                         this.props.onFileChange(file)
                         // to close image when done adding (not done)
-                        this.props.onReset(file)
+                        // this.props.onReset(file)
                     }
                 } else {
                     Swal.fire({

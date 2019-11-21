@@ -158,7 +158,7 @@ class FormAdd extends React.Component {
     }
 
     handleChangeCheckbox(event, name) {
-        let { value, checked, target } = event.target
+        let { value, checked } = event.target
         if (checked) {
             this.setState(state => ({
                 [name]: [...state[name], value]
@@ -187,12 +187,12 @@ class FormAdd extends React.Component {
     };
 
     // to close image when done adding (not done)
-    handleResetImage = file => {
-        // event.preventDefault()
-        this.setState({
-            file: {}
-        })
-    }
+    // handleResetImage = file => {
+    //     // event.preventDefault()
+    //     this.setState({
+    //         file: {}
+    //     })
+    // }
 
     // colorPicker() {
     //     if (this.state.displaypicker) {
@@ -228,10 +228,10 @@ class FormAdd extends React.Component {
     // }
 
     render() {
-        // console.log(this.state.file);
+        console.log(this.state.file);
         // console.log(this.state.file.name);
 
-        let { price, title, description, brand, detail, colors, capacities } = this.state
+        let { price, title, description, brand, detail, colors } = this.state
         let forms = [
             { name: 'title', type: 'text', label: 'Title', value: title },
             { name: 'description', type: 'textarea', label: 'Description', row: '5', value: description },

@@ -1,7 +1,7 @@
 import React from 'react'
 
 export function Form(props) {
-    let { name, label, type, min, max, onChange, inputMode, values, value, onChangeCurrency, onChangeCheckbox, checked } = props;
+    let { name, label, type, min, max, onChange, inputMode, value, onChangeCurrency, onChangeCheckbox } = props;
     if (type === 'text') {
         return (
             <div className="form-group row my-3">

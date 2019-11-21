@@ -43,7 +43,7 @@ export const loadProduct = (fetch) => {
     return dispatch => {
         return request.get(`products/${fetch}`)
             .then(function (response) {
-                if (response.data.status === 'SUCCESS'){
+                if (response.data.status === 'SUCCESS') {
                     dispatch(loadProductSuccess(response.data.productData));
                 }
                 else {
@@ -82,7 +82,7 @@ export const loadProductDetail = (id) => {
     return (dispatch) => {
         return request.get(`products/detail/${id}`)
             .then(function (response) {
-                if (response.data.status === 'SUCCESS'){
+                if (response.data.status === 'SUCCESS') {
                     dispatch(loadProductDetailSuccess(response.data.productData));
                     dispatch(push(`detail/`));
                 }
