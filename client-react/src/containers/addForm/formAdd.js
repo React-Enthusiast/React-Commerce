@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { addData } from '../../actions';
 import reactCSS from 'reactcss'
 import { SketchPicker } from 'react-color';
-import { Form } from './form'
-import Upload from './upload'
+import { Form } from './Form'
+import Upload from './Upload'
 
 //github.com/rofisyahrul
 Node.prototype.getParents = function (nth = 0) {

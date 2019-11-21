@@ -8,10 +8,9 @@ import { Route, Router } from "react-router-dom";
 import store, { history } from "./configuration";
 
 import Detail from './components/DetailProduct/Detail';
-import FormAdd from './containers/addForm/FormAdd';
+import FormAdd from './containers/AddForm/FormAdd';
 import Ecommerce from './components/Ecommerce';
 
-// ReactDOM.render(<App />, document.getElementById('root'));
 const routing = (
     <Provider store={store}>
       <ConnectedRouter history={history}>

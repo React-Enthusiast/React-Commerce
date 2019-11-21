@@ -5,15 +5,15 @@ import {
     ADD_DATA,
     ADD_DATA_SUCCESS,
     ADD_DATA_FAILURE,
-    DELETE_DATA,
-    DELETE_DATA_SUCCESS,
-    DELETE_DATA_FAILURE,
-    ADD_RATE_FAILURE
+
 } from "../constants/actiontype"
 
 const products = (state = [], action) => {
 
     switch (action.type) {
+        case LOAD_PRODUCT_SUCCESS:
+            return action.products
+
         case ADD_DATA:
             return [
                 ...state,
@@ -35,6 +35,7 @@ const products = (state = [], action) => {
             })
 
         case ADD_DATA_FAILURE:
+        case LOAD_PRODUCT_FAILURE:
         default:
             return state
     }

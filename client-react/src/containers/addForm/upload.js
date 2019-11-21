@@ -1,6 +1,6 @@
 import React from 'react'
 import '../../stylesheets/style.css'
-import Dropzone from './dropzone'
+import Dropzone from './Dropzone'
 import Swal from "sweetalert2";
 
 export default class Upload extends React.Component {

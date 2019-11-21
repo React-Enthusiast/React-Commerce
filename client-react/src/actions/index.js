@@ -21,6 +21,7 @@ import {
 
 import axios from 'axios'
 import Swal from "sweetalert2";
+import { push } from "connected-react-router";
 
 const API_URL = 'http://localhost:3001/api/'
 
@@ -42,8 +43,9 @@ export const loadProduct = (fetch) => {
     return dispatch => {
         return request.get(`products/${fetch}`)
             .then(function (response) {
-                if (response.data.status === 'SUCCESS')
+                if (response.data.status === 'SUCCESS'){
                     dispatch(loadProductSuccess(response.data.productData));
+                }
                 else {
                     dispatch(loadProductFailure());
                     Swal.fire({
@@ -77,11 +79,13 @@ const loadProductDetailFailure = () => {
 }
 
 export const loadProductDetail = (id) => {
-    return dispatch => {
+    return (dispatch) => {
         return request.get(`products/detail/${id}`)
             .then(function (response) {
-                if (response.data.status === 'SUCCESS')
+                if (response.data.status === 'SUCCESS'){
                     dispatch(loadProductDetailSuccess(response.data.productData));
+                    dispatch(push(`detail/`));
+                }
                 else {
                     dispatch(loadProductDetailFailure());
                     Swal.fire({
@@ -148,27 +152,29 @@ export const voteProduct = (id, lastVoteSum) => {
 }
 
 // START ADD RATE
-const rateProductRedux = (id, lastRate, newTestimonial) => {
-    return { type: ADD_RATE, id, rate: lastRate, testimonials: newTestimonial }
+const rateProductRedux = (objTestimoni) => {
+    return { type: ADD_RATE, testimonials: objTestimoni }
 }
 
 const rateProductSuccess = () => {
     return { type: ADD_RATE_SUCCESS };
 }
 
-const rateProductFailure = () => {
-    return { type: ADD_RATE_FAILURE };
+const rateProductFailure = (id, name, rate) => {
+    return { type: ADD_RATE_FAILURE, id, name, rate };
 }
 
-export const rateProduct = (id, lastRate, newTestimonial) => {
+export const rateProduct = (id, rate, name, testimoni) => {
+    let idTestimoni = Date.now();
+    let objTestimoni = { idTestimoni, rate, name, testimoni }
     return dispatch => {
-        dispatch(rateProductRedux(id, lastRate, newTestimonial));
+        dispatch(rateProductRedux(objTestimoni));
         return request.put(`products/${id}`)
             .then(function (response) {
                 if (response.data.status === 'SUCCESS')
                     dispatch(rateProductSuccess());
                 else {
-                    dispatch(rateProductFailure());
+                    dispatch(rateProductFailure(idTestimoni, rate, name));
                     Swal.fire({
                         icon: 'error',
                         title: 'Connection Lost',

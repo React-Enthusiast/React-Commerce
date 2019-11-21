@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import Testimonials from './Testimonials'
 import DescDetail from './DescDetail'
 import { Tabs, Tab, ToggleButtonGroup, ToggleButton, ButtonToolbar, Button } from 'react-bootstrap'
 import Star from '../MiniComponents/Stars'
 import BuyModal from './BuyModal'
+import { connect } from "react-redux";
+import { voteProduct } from "../../actions";
+import ItemTestimonial from './ItemTestimonial'
 
-export default class Detail extends Component {
+class Detail extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -77,11 +79,6 @@ export default class Detail extends Component {
     }
 
     render() {
-        let testimonials = [{ name: 'Adnan', rate: 3.5, message: 'Crazy this item' },
-        { name: 'Renda', rate: 3, message: 'Not Really like it item' },
-        { name: 'Rizka', rate: 5, message: 'Nice item' }]
-        let description = "Have you ever love";
-
         return (
             <React.Fragment>
                 <div className="container">
@@ -95,7 +92,7 @@ export default class Detail extends Component {
                                     <div className="col-md-4">
                                         <div className="card-body">
                                             <div className="text-center">
-                                                <img src="https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/iphone-s-white.png"
+                                                <img src={this.props.product.filename}
                                                     className="rounded" width="100%" height="100%" alt="..." />
                                             </div>
                                         </div>
@@ -103,29 +100,23 @@ export default class Detail extends Component {
 
                                     <div className="col-md-8">
                                         <div className="card-body">
-                                            <h1 className="card-title my-0 mt-4">iPhone X</h1>
+                                            <h1 className="card-title my-0 mt-4">{this.props.product.title}</h1>
 
-                                            <h4 className="card-title text-primary">Apple <span style={{ fontSize: "10px" }}>( 1200 Likes )</span> </h4>
+                                            <h4 className="card-title text-primary">{this.props.product.brand} <span style={{ fontSize: "10px" }}>( {this.props.product.vote} Likes )</span> </h4>
 
-                                            <Star rate={4.5} />
+                                            <Star rate={this.props.product.rate} />
 
-                                            <h3 className="card-text">Rp. 17.499.000,00</h3>
+                                            <h3 className="card-text">{this.props.product.price}</h3>
 
                                             <h6 className="card-text">Color: {(this.state.color) ? <span className="border border-dark" style={{ backgroundColor: `${this.state.color}` }}><span className="invisible">War</span></span> : ''}</h6>
 
                                             <ButtonToolbar>
-                                                <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                                                    <ToggleButton variant="outline-primary" value={'#fff'} className="mr-2 border rounded" onClick={this.setColor.bind(this)}>
-                                                        <span className="border border-dark" style={{ backgroundColor: '#fff', color: '#fff' }}>War</span>
-                                                    </ToggleButton>
-
-                                                    <ToggleButton variant="outline-primary" value={'#5F9EA0'} className="mr-2 border rounded" onClick={this.setColor.bind(this)}>
-                                                        <span className="border border-dark" style={{ backgroundColor: '#5F9EA0', color: '#5F9EA0' }}>War</span>
-                                                    </ToggleButton>
-
-                                                    <ToggleButton variant="outline-primary" value={'#FF1493'} className="mr-2 border rounded" onClick={this.setColor.bind(this)}>
-                                                        <span className="border border-dark" style={{ backgroundColor: '#FF1493', color: '#FF1493' }}>War</span>
-                                                    </ToggleButton>
+                                                <ToggleButtonGroup type="radio" name="options" defaultValue={'#fff'}>
+                                                    {this.props.product.colors.map((value) => {
+                                                        return <ToggleButton variant="outline-primary" value={value} className="mr-2 border rounded" onClick={this.setColor.bind(this)}>
+                                                                    <span className="border border-dark" style={{ backgroundColor: {value}, color: {value} }}>War</span>
+                                                                </ToggleButton>
+                                                    })}
                                                 </ToggleButtonGroup>
                                             </ButtonToolbar>
 
@@ -133,9 +124,10 @@ export default class Detail extends Component {
 
                                             <ButtonToolbar>
                                                 <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                                                    <ToggleButton variant="outline-primary" value={16} className="mr-2 border rounded" onClick={this.setStorage.bind(this)}>16 Gb</ToggleButton>
-                                                    <ToggleButton variant="outline-primary" value={32} className="mr-2 border rounded" onClick={this.setStorage.bind(this)}>32 Gb</ToggleButton>
-                                                    <ToggleButton variant="outline-primary" value={64} className="mr-2 border rounded" onClick={this.setStorage.bind(this)}>64 Gb</ToggleButton>
+                                                    {this.props.product.capacities.map(value => {
+                                                        return <ToggleButton variant="outline-primary" value={value} className="mr-2 border rounded" onClick={this.setStorage.bind(this)}>{value} Gb</ToggleButton>
+                                                    })}
+                                                    
                                                 </ToggleButtonGroup>
                                             </ButtonToolbar>
 
@@ -169,8 +161,8 @@ export default class Detail extends Component {
                                                 <Button className="mr-2" variant="success" onClick={() => this.setState({ showModal: true })}>
                                                     <i className="fas fa-shopping-cart "></i> Buy Now
                                                 </Button>
-                                                <button type="button" className="btn btn-primary col-md-2"> <i
-                                                className="far fa-thumbs-up "></i> Like </button>
+                                                <button type="button" className="btn btn-primary col-md-2" > <i
+                                                    className="far fa-thumbs-up "></i> Like </button>
 
                                                 <BuyModal
                                                     show={this.state.showModal}
@@ -179,6 +171,7 @@ export default class Detail extends Component {
                                                     changeRateMessage={this.changeRateMessage.bind(this)}
                                                     rateStars={this.state.rateStars}
                                                     setStars={this.setStars.bind(this)}
+                                                    itemid={this.props.product.id}
                                                 />
                                             </ButtonToolbar>
 
@@ -188,10 +181,13 @@ export default class Detail extends Component {
 
                                 <Tabs defaultActiveKey="description" id="uncontrolled-tab-example">
                                     <Tab eventKey="description" title="Description">
-                                        <DescDetail description={description} />
+                                        <DescDetail description={this.props.product.description} />
                                     </Tab>
+                                    {console.log('aduh',this.props.product)}
                                     <Tab eventKey="testimonials" title="Testimonials">
-                                        <Testimonials testimonials={testimonials} />
+                                        {this.props.product.testimonials.map(value => {
+                                            return <ItemTestimonial testimonial={value} />
+                                        })}
                                     </Tab>
                                 </Tabs>
                             </div>
@@ -202,3 +198,16 @@ export default class Detail extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    product: state.details.product
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    onVote: (id, vote) => { dispatch(voteProduct(id,vote)) },
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Detail);
